@@ -1,0 +1,28 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.text-field {
+  width: 70%;
+  margin-top: 20px;
+}
+
+.tos-submit {
+  margin-top: 30px;
+}
+
+label {
+  font-size: .75rem;
+}
+
+.sub-btn {
+  align-self: flex-start;
+  margin-left: 75px;
+  width: 100px;
+  height: 30px;
+}
