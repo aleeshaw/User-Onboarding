@@ -4,32 +4,47 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import '../Form.css';
 
-function UserForm() {
+function UserForm({values, errors, touched}) {
   return (
     <Form className='user-form'>
-      <Field 
-        className = 'text-field'
-        type = 'text'
-        name = 'name'
-        placeholder = 'name'
-      />
-      <Field 
-        className = 'text-field'
-        type = 'text'
-        name = 'email'
-        placeholder = 'email' 
-      />
-      <Field 
-        className = 'text-field'
-        type = 'password'
-        name = 'password'
-        placeholder = 'Password' 
-      />
+
+      <div>
+        {touched.username && errors.username && <p>{errors.username}</p>}
+        <Field 
+          className= 'text-field'
+          type = 'text'
+          name = 'username'
+          placeholder = 'name'
+        />
+      </div>
+
+      <div>
+        {touched.email && errors.email && <p>{errors.email}</p>}
+        <Field 
+          className = 'text-field'
+          type = 'text'
+          name = 'email'
+          placeholder = 'email' 
+        />
+      </div>
+
+      <div>
+        {touched.password && errors.password && <p>{errors.password}</p>}
+        <Field 
+          className = 'text-field'
+          type = 'password'
+          name = 'password'
+          placeholder = 'Password' 
+        />
+      </div>
+
       <div className='tos-submit'>
+        {touched.terms && errors.terms && <p>{errors.terms}</p>}
         <label>
         <Field
           type = 'checkbox'
-          name = 'TOS'
+          name = 'terms'
+          checked={values.terms}
         />
         I Agree to the Terms of Service
         </label>
@@ -44,30 +59,29 @@ function UserForm() {
 }
 
 const FormikUserForm = withFormik({
-  mapPropsToValues ({name, email, password, TOS}) {
+  mapPropsToValues ({username, email, password, terms}) {
     return {
-      name: name ||"",
+      username: username ||"",
       email: email || "",
       password: password || "",
-      TOS: true || false
+      terms: terms || false
     };
   },
   //VALIDATION
   validationSchema: Yup.object().shape({
-    name: Yup.string()
-      .required("Please type your name."),
+    username: Yup.string()
+      .required("Name is required"),
     email: Yup.string()
-      .email()
-      .required("Please type a valid email."),
+      .email("Email is not valid")
+      .required("Email is required."),
     password: Yup.string()
-      .min(8)
-      .required("Please choose a password with at least 8 characters"),
-    TOS: Yup.bool()
-      .positive()
+      .min(8, "Please choose a password with at least 8 characters.")
+      .required("Password is required."),
+    terms: Yup.mixed()
       .required("Terms of Service Agreement required!")
   }),
   //END VALIDATION
-  
+
   handleSubmit(values) {
     console.log(values)
     //stuff goes here too

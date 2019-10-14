@@ -1,15 +1,15 @@
 .user-form {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 80%;
   align-items: center;
   padding: 20px;
   margin: 0 auto;
 }
 
 .text-field {
-  width: 70%;
   margin-top: 20px;
+  width: 100%
 }
 
 .tos-submit {
