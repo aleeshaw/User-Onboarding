@@ -82,7 +82,7 @@ const FormikUserForm = withFormik({
   }),
   //END VALIDATION
 
-  handleSubmit(values, { resetForm, setErrors, setSubmitting }) {
+  handleSubmit(values, { resetForm, setErrors, setSubmitting, setStatus }) {
     console.log(values)
     
     if (values.email === "12234@email.com") {
@@ -92,7 +92,7 @@ const FormikUserForm = withFormik({
         .post("https://reqres.in/api/users", values)
         .then(results => {
           console.log(results); //logging results
-          
+          setStatus(results.data);
           resetForm(); //resetting form after submit
           setSubmitting(false); 
         })
