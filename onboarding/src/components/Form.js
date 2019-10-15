@@ -82,9 +82,25 @@ const FormikUserForm = withFormik({
   }),
   //END VALIDATION
 
-  handleSubmit(values) {
+  handleSubmit(values, { resetForm, setErrors, setSubmitting }) {
     console.log(values)
-    //stuff goes here too
+    
+    if (values.email === "12234@email.com") {
+      setErrors({email: "A user with that email is already registered."});
+    } else {
+      axios 
+        .post("https://reqres.in/api/users", values)
+        .then(results => {
+          console.log(results); //logging results
+          
+          resetForm(); //resetting form after submit
+          setSubmitting(false); 
+        })
+        .catch(error => {
+          console.log("There's been an error: ", error);
+          setSubmitting(false);
+        });
+    }
   }
 })(UserForm);
 
