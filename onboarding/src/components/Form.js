@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withFormik, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import '../Form.css';
 
-function UserForm({values, errors, touched}) {
+function UserForm({values, errors, touched}, props) {
+  const [users, setUsers] = useState([]);
+
+  // useEffect(() => {
+  //   if(status) {
+  //     setUsers([...users, status]);
+  //   }
+  // }, [status]);
+
   return (
+    <>
     <Form className='user-form'>
 
       <div>
@@ -55,8 +64,17 @@ function UserForm({values, errors, touched}) {
         />
       </div>
     </Form>
+    <div className="user-list">
+      {users.map(user => (
+        <ul key={user.id}>
+        <li>Username: {user.username}</li>
+        <li>Email: {user.email}</li>
+        </ul>
+      ))}
+    </div>
+    </>
   );
-}
+};
 
 const FormikUserForm = withFormik({
   mapPropsToValues ({username, email, password, terms}) {
@@ -83,7 +101,7 @@ const FormikUserForm = withFormik({
   //END VALIDATION
 
   handleSubmit(values, { resetForm, setErrors, setSubmitting, setStatus }) {
-    console.log(values)
+    console.log("Values: ", values)
     
     if (values.email === "12234@email.com") {
       setErrors({email: "A user with that email is already registered."});
@@ -93,6 +111,7 @@ const FormikUserForm = withFormik({
         .then(results => {
           console.log(results); //logging results
           setStatus(results.data);
+          console.log("status: ", status)
           resetForm(); //resetting form after submit
           setSubmitting(false); 
         })
