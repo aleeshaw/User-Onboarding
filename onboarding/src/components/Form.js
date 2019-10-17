@@ -4,14 +4,12 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import '../Form.css';
 
-function UserForm({values, errors, touched}, props) {
+function UserForm({values, errors, touched, status}) {
   const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   if(status) {
-  //     setUsers([...users, status]);
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    status && setUsers(users => [...users, status])
+  }, [status])
 
   return (
     <>
@@ -65,6 +63,7 @@ function UserForm({values, errors, touched}, props) {
       </div>
     </Form>
     <div className="user-list">
+      <h4>Users:</h4>
       {users.map(user => (
         <ul key={user.id}>
         <li>Username: {user.username}</li>
@@ -101,7 +100,6 @@ const FormikUserForm = withFormik({
   //END VALIDATION
 
   handleSubmit(values, { resetForm, setErrors, setSubmitting, setStatus }) {
-    console.log("Values: ", values)
     
     if (values.email === "12234@email.com") {
       setErrors({email: "A user with that email is already registered."});
@@ -111,7 +109,6 @@ const FormikUserForm = withFormik({
         .then(results => {
           console.log(results); //logging results
           setStatus(results.data);
-          console.log("status: ", status)
           resetForm(); //resetting form after submit
           setSubmitting(false); 
         })
