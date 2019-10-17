@@ -26,3 +26,7 @@ label {
   width: 100px;
   height: 30px;
 }
+
+.user-list {
+  list-style-type: none;
+}

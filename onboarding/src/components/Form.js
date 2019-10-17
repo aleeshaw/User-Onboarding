@@ -62,12 +62,11 @@ function UserForm({values, errors, touched, status}) {
         />
       </div>
     </Form>
-    <div className="user-list">
+    <div className="user-display">
       <h4>Users:</h4>
       {users.map(user => (
-        <ul key={user.id}>
-        <li>Username: {user.username}</li>
-        <li>Email: {user.email}</li>
+        <ul key={user.id} className="user-list">
+        <li><strong>{user.username}</strong> - Email: {user.email}</li>
         </ul>
       ))}
     </div>
