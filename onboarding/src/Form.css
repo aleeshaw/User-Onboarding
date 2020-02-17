@@ -1,0 +1,32 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.text-field {
+  margin-top: 20px;
+  width: 100%
+}
+
+.tos-submit {
+  margin-top: 30px;
+}
+
+label {
+  font-size: .75rem;
+}
+
+.sub-btn {
+  align-self: flex-start;
+  margin-left: 75px;
+  width: 100px;
+  height: 30px;
+}
+
+.user-list {
+  list-style-type: none;
+}
